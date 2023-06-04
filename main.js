@@ -29,32 +29,52 @@ function AddStudent() {
     let student = {
         id: STUDENTSLIST.length + 1,
         name: inputs.name.value,
-        last : inputs.last.value,
+        last: inputs.last.value,
         email: inputs.email.value,
         course: inputs.course.value,
         score: inputs.score.value
     }
-    STUDENTLIST.push(student);
-    render(STUDENTLIST);
+    STUDENTSLIST.push(student);
+    render(STUDENTSLIST);
     modal.hide();
 
 
 }
+function EditStudent(StudentID) {
+    let index = STUDENTSLIST.findIndex(std => std.id === StudentID);
+    let student = {
+        id: STUDENTSLIST.length + 1,
+        name: inputs.name.value,
+        last: inputs.last.value,
+        email: inputs.email.value,
+        course: inputs.course.value,
+        score: inputs.score.value
+    }
+    STUDENTSLIST.splice(index , 1 , student);
+    render(STUDENTSLIST);
+   
+}
 
 
-function render(studentlist){
+
+function render(studentlist) {
     tableroot.innerHTML = "";
-    studentlist.forEach(element , index => {
+    studentlist.forEach((element, index) => {
         let template = `
         <tr>
-                    <th scope="row">${index+1}</th>
+                    <th scope="row">${index + 1}</th>
                     <td>${element.name}</td>
                     <td>${element.last}</td>
                     <td>${element.email}</td>
                     <td>${element.course}</td>
                     <td>${element.score}</td>
+                    <td>
+                    <button class="btn btn-danger" onclick="DeleteStudent(${element.id})">Delete</button>
+                    <button class="btn btn-info" onclick="openEditStudent(${element.id})">Edit</button>
+                    </td>
                 </tr>
         `;
         tableroot.innerHTML += template;
     });
+
 }
