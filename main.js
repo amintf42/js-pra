@@ -50,9 +50,21 @@ function EditStudent(StudentID) {
         course: inputs.course.value,
         score: inputs.score.value
     }
-    STUDENTSLIST.splice(index , 1 , student);
+    STUDENTSLIST.splice(index, 1, student);
     render(STUDENTSLIST);
-   
+    // addBtn.setAttribute("onclick", 'AddStudent()')
+
+}
+
+function openEditStudent(StudentID) {
+    let student = STUDENTSLIST.find(std => std.id === StudentID)
+    for (const inputkey in inputs) {
+        inputs[inputkey].value = student[inputkey];
+    }
+    modalLable.textContent = "Edit Student";
+    // addBtn.setAttribute("onclick", `EditStudent(${StudentID})`)
+    modal.show()
+
 }
 
 
