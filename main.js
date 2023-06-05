@@ -37,7 +37,7 @@ function AddStudent() {
     STUDENTSLIST.push(student);
     render(STUDENTSLIST);
     modal.hide();
-
+    clearInputs()
 
 }
 function EditStudent(StudentID) {
@@ -52,7 +52,8 @@ function EditStudent(StudentID) {
     }
     STUDENTSLIST.splice(index, 1, student);
     render(STUDENTSLIST);
-    // addBtn.setAttribute("onclick", 'AddStudent()')
+    addBtn.setAttribute("onclick", 'AddStudent()');
+    modalLable.textContent = "Add Student";
 
 }
 
@@ -62,11 +63,24 @@ function openEditStudent(StudentID) {
         inputs[inputkey].value = student[inputkey];
     }
     modalLable.textContent = "Edit Student";
-    // addBtn.setAttribute("onclick", `EditStudent(${StudentID})`)
+    addBtn.setAttribute("onclick", `EditStudent(${StudentID})`)
     modal.show()
 
 }
+function DeleteStudent(StudentID) {
+    STUDENTSLIST = STUDENTSLIST.filter(std => std.id !== StudentID);
+    render(STUDENTSLIST);
+}
 
+function clearInputs() {
+    for (const inputkey in inputs) {
+
+        inputs[inputkey].value = "";
+
+
+    }
+
+}
 
 
 function render(studentlist) {
@@ -88,5 +102,10 @@ function render(studentlist) {
         `;
         tableroot.innerHTML += template;
     });
+    modal.hide();
 
 }
+
+window.addEventListener("DOMContentLoaded" , () =>{
+    render(STUDENTSLIST);
+});
